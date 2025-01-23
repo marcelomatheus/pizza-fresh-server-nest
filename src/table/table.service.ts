@@ -1,12 +1,18 @@
 import { Injectable } from "@nestjs/common";
+import { CreateTableDto } from "./dto/create-table.dto";
+import { Table } from "./entities/table.entity";
 
 @Injectable()
 export class TableService{
-    create() {
-        return 'Criar mesas'
+    tables: Table[] = []
+    create(createTableDto: CreateTableDto) {
+        const table: Table = { id: 'random_id', ...createTableDto}
+
+        this.tables.push(table)
+        return table
     }
     findAll() {
-        return 'Buscar todas as mesas'
+        return this.tables
     }
 
 }

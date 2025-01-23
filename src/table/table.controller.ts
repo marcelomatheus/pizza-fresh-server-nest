@@ -1,6 +1,9 @@
-import { Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { TableService } from "./table.service";
+import { CreateTableDto } from "./dto/create-table.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('table')
 @Controller('table')
 export class TableController {
     constructor(private tableService: TableService) {}
@@ -10,7 +13,7 @@ export class TableController {
     }
 
     @Post()
-    create() {
-        return this.tableService.create();
+    create(@Body() createTableDto: CreateTableDto) {
+        return this.tableService.create(createTableDto);
     }
 }
