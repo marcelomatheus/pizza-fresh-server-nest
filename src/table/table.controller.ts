@@ -3,6 +3,7 @@ import { TableService } from "./table.service";
 import { CreateTableDto } from "./dto/create-table.dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Table } from "./entities/table.entity";
+import { UpdateTableDto } from "./dto/update-table.dto";
 
 @ApiTags('table')
 @Controller('table')
@@ -45,7 +46,7 @@ export class TableController {
     @ApiOperation({
         summary: 'Update a data table'
     })
-    update(@Param('id') id:string, @Body() createTableDto: CreateTableDto): Promise<Table>{
-        return this.tableService.update(id,createTableDto)
+    update(@Param('id') id:string, @Body() updateTableDto: UpdateTableDto): Promise<Table>{
+        return this.tableService.update(id, updateTableDto)
     }
 }
