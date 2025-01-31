@@ -33,8 +33,8 @@ export class TableService{
     findAll(): Promise<Table[]> {
         return this.prisma.table.findMany()
     }
-    async findOne(id: string): Promise<Table> {
-        return await this.findById(id)
+    findOne(id: string): Promise<Table> {
+        return this.findById(id)
         
     }
     async delete(id: string) {
