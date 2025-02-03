@@ -3,6 +3,7 @@ import { CreateTableDto } from "./dto/create-table.dto";
 import { Table } from "./entities/table.entity";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdateTableDto } from "./dto/update-table.dto";
+import { handleError } from "src/utils/handle-errors.util";
 
 @Injectable()
 export class TableService{
@@ -18,17 +19,12 @@ export class TableService{
         return record;
     }
 
-    create(createTableDto: CreateTableDto): Promise<Table> {
+    async create(createTableDto: CreateTableDto): Promise<Table> {
         const table: Table = {...createTableDto}
  
-        return this.prisma.table.create({
+        return await this.prisma.table.create({
             data: table
-        }).catch(this.handleError)
-    }
-    handleError(error: Error): undefined {
-        const messageLines = error.message.split('\n')
-        const messageError = messageLines[messageLines.length-1].trim()
-        throw new UnprocessableEntityException(messageError || 'Algum erro ocorreu ao executar a operação')
+        }).catch(handleError)
     }
     findAll(): Promise<Table[]> {
         return this.prisma.table.findMany()
@@ -56,6 +52,6 @@ export class TableService{
             where: {
                 id
             }
-        }).catch(this.handleError)
+        }).catch(handleError)
     }
 }

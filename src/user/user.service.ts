@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from './entities/user.entity';
 import { find } from 'rxjs';
+import { handleError } from 'src/utils/handle-errors.util';
 
 @Injectable()
 export class UserService {
@@ -18,10 +19,11 @@ export class UserService {
       return record;
   }
   create(createUserDto: CreateUserDto) {
+    delete createUserDto.confirmPassword
     const user: User = {...createUserDto}
     return this.prisma.user.create({
         data: user
-    }).catch(this.handleError)
+    }).catch(handleError)
   }
 
   findAll(): Promise<User[]> {
@@ -34,13 +36,14 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     await this.findById(id)
+    delete updateUserDto.confirmPassword
     const data: Partial<User> = {...updateUserDto}
     return this.prisma.user.update({
         data,
         where: {
             id
         }
-    }).catch(this.handleError)
+    }).catch(handleError)
   }
 
   async remove(id: string): Promise<void> {
@@ -50,11 +53,5 @@ export class UserService {
             id
         }
     })  
-  }
-
-  handleError(error: Error): undefined {
-    const messageLines = error.message.split('\n')
-    const messageError = messageLines[messageLines.length-1].trim()
-    throw new Error(messageError || 'Algum erro ocorreu ao executar a operação')
   }
 }
