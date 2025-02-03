@@ -10,18 +10,25 @@ export class CreateUserDto {
     nickname: string
 
     @ApiProperty({
-        description: 'Primeiro nome do usuário',
-        example: 'Lucas'
+        description: 'Nome do usuário',
+        example: 'Lucas Nunes Alves'
     })
     @IsString()
     name: string
 
     @ApiProperty({
         description: 'Senha do usuário',
-        example: '123456'
+        example: 'makdsjbd51a4@'
     })
     @IsStrongPassword()
     password: string
+
+    @ApiProperty({
+        description: 'Confirmação da senha do usuário',
+        example: 'makdsjbd51a4@'
+    })
+    confirmPassword: string
+
 
     @ApiProperty({
         description: 'Imagem do usuário',
