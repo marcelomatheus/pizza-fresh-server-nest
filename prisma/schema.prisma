@@ -85,5 +85,6 @@ model OrderProducts{
 
   description String
 
+  @@unique([orderId, productId])
   @@map("order_products")
 }
