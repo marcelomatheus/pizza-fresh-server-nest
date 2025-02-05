@@ -27,7 +27,8 @@ export class CreateUserDto {
         description: 'Confirmação da senha do usuário',
         example: 'Makdsjbd51a4@'
     })
-    confirmPassword?: string
+    @IsStrongPassword()
+    confirmPassword: string
 
 
     @ApiProperty({
