@@ -5,14 +5,6 @@ import { Type } from "class-transformer";
 
 @ApiTags('order')
 export class CreateOrderDto {
-
-    @IsUUID()
-    @ApiProperty({
-        example: '12fdb2ec-727f-4048-abb4-fc7571202fb4',
-        description: 'The user id that is making the order'
-    })
-    userId: string;
-
     @ApiProperty({
         example: 1,
         description: 'The table number that the order is being made',
