@@ -29,7 +29,7 @@ export class AuthService {
     delete user.password;
 
     return {
-        token: this.jwtService.sign({payload: nickname}),
+        token: this.jwtService.sign({ nickname }),
         user
     }
   }

@@ -1,12 +1,15 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, UseGuards } from "@nestjs/common";
 import { TableService } from "./table.service";
 import { CreateTableDto } from "./dto/create-table.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Table } from "./entities/table.entity";
 import { UpdateTableDto } from "./dto/update-table.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags('table')
 @Controller('table')
+@ApiBearerAuth()
+@UseGuards(AuthGuard())
 export class TableController {
     constructor(private readonly tableService: TableService) {}
     @Get()
