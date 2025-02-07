@@ -4,11 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: process.env.IPLIST
-    }
-  });
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ['http://192.168.0.5'],
+    methods: 'PUT'
+  })
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
     whitelist: true,
@@ -34,3 +34,4 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
+
